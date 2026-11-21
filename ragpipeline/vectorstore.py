@@ -4,17 +4,17 @@ import numpy as np
 from .embeddings import Embedding
 import pickle
 from typing_extensions import List,Any,Dict
-from sentence_transformers import SentenceTransformer
 class FaissStore:
-    def __init__(self,model_name = "all-MiniLM-L6-v2"):
+    def __init__(self):
         self.client_dir = "./src/vectordb"
         os.makedirs(self.client_dir,exist_ok=True)
         self.index = None
         self.metadata = []
-        self.model = SentenceTransformer(model_name)
-        print(f"The Embedding Model [{self.model}] is loaded")
+        self.embeddings = Embedding()
+        print(f"The Embedding Model  is loaded")
     def build_with_doc(self,docs:List[Any]):
-        embedded_pipeline = Embedding(self.model)
+        embedded_pipeline = self.embeddings
+
         chunk_with_pdf = embedded_pipeline.chunk_pdf(docs)
         metadatas = [{"Test":chunk.page_content} for chunk in chunk_with_pdf]
         embeddings = embedded_pipeline.embedding_genrator(chunk_with_pdf)
@@ -50,7 +50,7 @@ class FaissStore:
             res.append({"index":idx,"distance":dist,"meta":meta})
         return res
     def query(self,query):
-        query_em = self.model.encode([query]).astype(np.float32)
+        query_em = self.embeddings.embed_texts([query])
         res = self.search(query_em)
         return res
 

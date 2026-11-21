@@ -36,7 +36,7 @@ Tasks:
 Use only information supported by the resume.
 Do not invent experience or skills.
 """
-        structured = self.llm.with_structured_output(ResponseModel)
+        structured = self.llm.with_structured_output(ResponseModel,method="json_schema")
         response = structured.invoke(prompt)
         return response.model_dump()
        
