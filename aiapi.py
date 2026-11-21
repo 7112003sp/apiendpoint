@@ -18,10 +18,12 @@ async def analyse(
     from langchain_core.documents import Document
     from ragpipeline.vectorstore import FaissStore
     from ragpipeline.search import RagSearch
-
+    print("1. Request received", flush=True)
     pdf_bytes = await resume.read()
+    print("2. PDF received", flush=True)
 
     pdf = fitz.open(stream=pdf_bytes, filetype="pdf")
+    print("3. PDF extracted", flush=True)
 
     docs = []
 
@@ -39,6 +41,7 @@ async def analyse(
 
     faiss = FaissStore()
     faiss.build_with_doc(docs=docs)
+    print("5. Embeddings and index created", flush=True)
 
     search = RagSearch(faiss)
 
@@ -46,5 +49,6 @@ async def analyse(
         jd,
         "Relevant technical skills, projects, work experience, education and qualifications"
     )
+    print("7. AI analysis completed", flush=True)
 
     return {"message": result}
