@@ -1,6 +1,5 @@
 from langchain_community.document_loaders import PyMuPDFLoader
 from pathlib import Path
-import fitz
 from .vectorstore import FaissStore
 from langchain_core.documents import Document
 def loadPdf(pdf_directory):
@@ -19,5 +18,5 @@ def loadPdf(pdf_directory):
         print(f"Error: {e}")
         raise ValueError(f"There is an error {e}")
 
-res = loadPdf("./pdfs")
+
 

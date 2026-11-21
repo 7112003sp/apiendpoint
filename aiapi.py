@@ -2,13 +2,14 @@ from fastapi import FastAPI,UploadFile,File,Form
 import fitz
 from langchain_core.documents import Document
 app = FastAPI()
-from ragpipeline.vectorstore import FaissStore
-from ragpipeline.search import RagSearch
+
 @app.post("/analyse")
 async def analyse(
     resume:UploadFile = File(...),
     jd:str = Form(...)
 ):
+    from ragpipeline.vectorstore import FaissStore
+    from ragpipeline.search import RagSearch
     print(resume.filename)
     print(jd)
     pdf_bytes = await resume.read()

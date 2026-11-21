@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 from .structuredoutput import ResponseModel
 
 load_dotenv()
-os.environ["GROQ_API_KEY"] = os.getenv("GROQ_API_KEY")
+
 class RagSearch:
     def __init__(self, vectorStore):
         self.vectorStore = vectorStore
