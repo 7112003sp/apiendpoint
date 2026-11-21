@@ -14,12 +14,11 @@ class FaissStore:
         self.model = SentenceTransformer(model_name)
         print(f"The Embedding Model [{self.model}] is loaded")
     def build_with_doc(self,docs:List[Any]):
-        embedded_pipeline = Embedding()
+        embedded_pipeline = Embedding(self.model)
         chunk_with_pdf = embedded_pipeline.chunk_pdf(docs)
         metadatas = [{"Test":chunk.page_content} for chunk in chunk_with_pdf]
         embeddings = embedded_pipeline.embedding_genrator(chunk_with_pdf)
         self.add_embeddings(np.array(embeddings).astype(np.float32),metadatas)
-        self.save()
     def add_embeddings(self,embeddings:np.ndarray,metadata:List[Any]):
         dimensions = embeddings.shape[1]
         if self.index is None:

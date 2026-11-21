@@ -2,9 +2,7 @@ from sentence_transformers import SentenceTransformer
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from typing_extensions import List,Any,Dict
 class Embedding():
-    def __init__(self):
-        self.model_name = "all-MiniLM-L6-v2"
-        self.model = SentenceTransformer(self.model_name)
+    def __init__(self,model):
         self.chunk_size = 1000
         self.overlap = 200
     def chunk_pdf(self,docs:List[Any]):
