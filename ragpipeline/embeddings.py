@@ -4,7 +4,6 @@ from google import genai
 from google.genai import types
 import os
 import numpy as np
-from huggingface_hub import InferenceClient
 from dotenv import load_dotenv
 load_dotenv()
 class Embedding():
